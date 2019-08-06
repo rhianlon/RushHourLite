@@ -4,19 +4,19 @@ public class Brick {
 	private final int height;
 	private final int length;
 	private final boolean isMainBrick;
-
-	private int x;
-	private int y;
+	
+	private Point position;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public Brick(int height, int length, boolean isMainBrick) {
+	public Brick(int height, int length, boolean isMainBrick, Point position ) {
 		this.height = height;
 		this.length = length;
 		this.isMainBrick = isMainBrick;
+		this.position = position;
 	}
 
 	public int getHeight() {
@@ -30,21 +30,11 @@ public class Brick {
 	public boolean isMainBrick() {
 		return isMainBrick;
 	}
-
-	public int getX() {
-		return x;
+	
+	public Point getPosition() {
+		return position;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
+	
 
 }
