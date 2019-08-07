@@ -48,7 +48,7 @@ class TestPlayGround {
 		Brick brick2 = new Brick(Orientation.VERTICAL, 2, false, position2);
 
 		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
-		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2));
+		Assertions.assertEquals(false, playground1.isTouching(brick1, brick2));
 	}
 //	-------------------------------------------------------------------------------------------------------------------------------
 	@Test
@@ -84,6 +84,7 @@ class TestPlayGround {
 		Brick brick2 = new Brick(Orientation.VERTICAL, 3, false, position2);
 		
 		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2));
+		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
 		
 	}
 	void testIsNotTouchingLeftTouch() {
@@ -107,6 +108,7 @@ class TestPlayGround {
 		Brick brick2 = new Brick(Orientation.HORIZONTAL, 3, false, position2);
 		
 		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2));
+		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
 		
 	}
 	
@@ -131,6 +133,7 @@ class TestPlayGround {
 		Brick brick2 = new Brick(Orientation.HORIZONTAL, 3, false, position2);
 		
 		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2));
+		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
 		
 	}
 	
