@@ -30,6 +30,10 @@ public class Brick {
 	public Point getPosition() {
 		return position;
 	}
+	
+	public void setPosition(Point position) {
+		this.position = position;
+	}
 	public Orientation getOrientation() {
 		return orientation;
 	}
