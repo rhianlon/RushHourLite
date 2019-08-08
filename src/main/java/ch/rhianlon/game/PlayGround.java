@@ -53,6 +53,11 @@ public class PlayGround {
 
 	public boolean isTouching(Brick brick1, Brick brick2) {
 
+		return isTouchingOneSide(brick1, brick2) || isTouchingOneSide(brick2, brick1);
+	}
+
+	private boolean isTouchingOneSide(Brick brick1, Brick brick2) {
+
 		int length1 = brick1.getWidth();
 		int height1 = brick1.getHeight();
 		Point l1 = new Point(brick1.getPosition().x, brick1.getPosition().y + height1);
@@ -63,11 +68,12 @@ public class PlayGround {
 		Point l2 = new Point(brick2.getPosition().x, brick2.getPosition().y + height2);
 		Point r2 = new Point(brick2.getPosition().x + length2, brick2.getPosition().y);
 
-		if (r1.x == l2.x || r1.y == l2.y || l1.x == r2.x || l1.y == r2.y) {
-			return true;
-		} else
-			return false;
+		boolean isTouchingRight = r1.x == l2.x && r1.y < l2.y && r1.y > r2.y;
+		boolean isTouchingLeft = l1.x == r2.x && r1.y > r2.y && r1.y < l2.y;
+		boolean isTouchingTop = l1.y == r2.y && l1.x > l2.x && l2.x < r2.x;
+		boolean isTouchingBottom = r1.y == l2.y && l1.x > l2.x && l1.x < r2.x;
 
+		return isTouchingRight || isTouchingLeft || isTouchingBottom || isTouchingTop;
 	}
 
 	public void moveBrick(Brick brick, Direction direction) {
