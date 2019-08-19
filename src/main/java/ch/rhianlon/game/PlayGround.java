@@ -1,6 +1,8 @@
 package ch.rhianlon.game;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class PlayGround {
@@ -53,10 +55,14 @@ public class PlayGround {
 
 	public boolean isTouching(Brick brick1, Brick brick2) {
 
-		return isTouchingOneSide(brick1, brick2) || isTouchingOneSide(brick2, brick1);
+		boolean var = !isTouchingOneSide(brick1, brick2).isEmpty();
+		
+		return var; // isTouchingOneSide(brick1, brick2) || isTouchingOneSide(brick2, brick1);
 	}
 
-	private boolean isTouchingOneSide(Brick brick1, Brick brick2) {
+	private List isTouchingOneSide(Brick brick1, Brick brick2) {
+		
+		List<Direction> whereIsItTouching = new ArrayList<Direction>();
 
 		int length1 = brick1.getWidth();
 		int height1 = brick1.getHeight();
@@ -72,8 +78,20 @@ public class PlayGround {
 		boolean isTouchingLeft = l1.x == r2.x && r1.y > r2.y && r1.y < l2.y;
 		boolean isTouchingTop = l1.y == r2.y && l1.x > l2.x && l2.x < r2.x;
 		boolean isTouchingBottom = r1.y == l2.y && l1.x > l2.x && l1.x < r2.x;
-
-		return isTouchingRight || isTouchingLeft || isTouchingBottom || isTouchingTop;
+		
+		if(isTouchingRight) {
+			whereIsItTouching.add(Direction.RIGHT);
+		}
+		if(isTouchingLeft) {
+			whereIsItTouching.add(Direction.LEFT);
+		}
+		if(isTouchingBottom) {
+			whereIsItTouching.add(Direction.DOWN);
+		}
+		if(isTouchingTop) {
+			whereIsItTouching.add(Direction.UP);
+		}
+		return whereIsItTouching;
 	}
 
 	public void moveBrick(Brick brick, Direction direction) {

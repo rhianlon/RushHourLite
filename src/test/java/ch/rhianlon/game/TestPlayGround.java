@@ -61,15 +61,30 @@ class TestPlayGround {
 		Brick brick2 = new Brick(Orientation.VERTICAL, 3, false, position2);
 		
 		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2));
-		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
+		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));		
 		
 	}
-	void testIsNotTouchingRightTouch() {
+	@Test
+	@DisplayName("Method 'isTouching' Scenario righttouch is tested")
+	void testIsTouchingRightTouch2() {
 		PlayGround playground1 = new PlayGround();
 		Point position1 = new Point(1, 2);
-		Point position2 = new Point(4, 1);
+		Point position2 = new Point(3, 1);
 		Brick brick1 = new Brick(Orientation.HORIZONTAL, 2, false, position1);
 		Brick brick2 = new Brick(Orientation.VERTICAL, 3, false, position2);
+		
+		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2));
+		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
+	}
+	
+	@Test
+	@DisplayName("Method 'isTouching' Scenario NO righttouch is tested")
+	void testIsNotTouchingRightTouch() {
+		PlayGround playground1 = new PlayGround();
+		Point position1 = new Point(0, 3);
+		Point position2 = new Point(1, 2);
+		Brick brick1 = new Brick(Orientation.HORIZONTAL, 3, false, position1);
+		Brick brick2 = new Brick(Orientation.VERTICAL, 1, false, position2);
 		
 		Assertions.assertEquals(false, playground1.isTouching(brick1, brick2));
 		
@@ -87,6 +102,8 @@ class TestPlayGround {
 		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
 		
 	}
+	@Test
+	@DisplayName("Method 'isTouching' Scenario NO lefttouch is tested")
 	void testIsNotTouchingLeftTouch() {
 		PlayGround playground1 = new PlayGround();
 		Point position1 = new Point(3, 2);
@@ -111,7 +128,8 @@ class TestPlayGround {
 		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
 		
 	}
-	
+	@Test
+	@DisplayName("Method 'isTouching' Scenario NO toptouch is tested")
 	void testIsNotTouchingOnTop() {
 		PlayGround playground1 = new PlayGround();
 		Point position1 = new Point(2, 1);
