@@ -1,6 +1,7 @@
 package ch.rhianlon.game;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,7 @@ class TestPlayGround {
 		Brick brick2 = new Brick(Orientation.VERTICAL, 1, false, position2);
 
 		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
-		Assertions.assertEquals(false, playground1.isTouching(brick1, brick2));
+		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2).isEmpty());
 	}
 
 	@Test
@@ -33,7 +34,7 @@ class TestPlayGround {
 		Brick brick4 = new Brick(Orientation.HORIZONTAL, 1, false, position4);
 
 		Assertions.assertEquals(true, playground2.isOverlapping(brick3, brick4));
-		Assertions.assertEquals(false, playground2.isTouching(brick3, brick4));
+		Assertions.assertEquals(true, playground2.isTouching(brick3, brick4).isEmpty());
 
 	}
 
@@ -48,7 +49,7 @@ class TestPlayGround {
 		Brick brick2 = new Brick(Orientation.VERTICAL, 2, false, position2);
 
 		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));
-		Assertions.assertEquals(false, playground1.isTouching(brick1, brick2));
+		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2).isEmpty());
 	}
 //	-------------------------------------------------------------------------------------------------------------------------------
 	@Test
@@ -59,8 +60,10 @@ class TestPlayGround {
 		Point position2 = new Point(3, 1);
 		Brick brick1 = new Brick(Orientation.HORIZONTAL, 2, false, position1);
 		Brick brick2 = new Brick(Orientation.VERTICAL, 3, false, position2);
+		List<Direction> myTestList = playground1.isTouching(brick1, brick2);
 		
-		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2));
+		Assertions.assertEquals(1, myTestList.size());
+		Assertions.assertEquals(Direction.RIGHT, myTestList.get(0));
 		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));		
 		
 	}
@@ -68,7 +71,7 @@ class TestPlayGround {
 	@DisplayName("Method 'isTouching' Scenario righttouch is tested")
 	void testIsTouchingRightTouch2() {
 		PlayGround playground1 = new PlayGround();
-		Point position1 = new Point(1, 2);
+		Point position1 = new Point(0, 3);
 		Point position2 = new Point(3, 1);
 		Brick brick1 = new Brick(Orientation.HORIZONTAL, 2, false, position1);
 		Brick brick2 = new Brick(Orientation.VERTICAL, 3, false, position2);
@@ -86,8 +89,7 @@ class TestPlayGround {
 		Brick brick1 = new Brick(Orientation.HORIZONTAL, 3, false, position1);
 		Brick brick2 = new Brick(Orientation.VERTICAL, 1, false, position2);
 		
-		Assertions.assertEquals(false, playground1.isTouching(brick1, brick2));
-		
+		Assertions.assertEquals(true, playground1.isTouching(brick1, brick2).isEmpty());	
 	}
 	@Test
 	@DisplayName("Method 'isTouching' Scenario lefttouch is tested")

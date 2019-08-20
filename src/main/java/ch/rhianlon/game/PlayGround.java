@@ -53,14 +53,14 @@ public class PlayGround {
 
 	}
 
-	public boolean isTouching(Brick brick1, Brick brick2) {
+	/*public boolean isTouching(Brick brick1, Brick brick2) {
 
 		boolean var = !isTouchingOneSide(brick1, brick2).isEmpty();
 		
 		return var; // isTouchingOneSide(brick1, brick2) || isTouchingOneSide(brick2, brick1);
-	}
+	}*/
 
-	private List isTouchingOneSide(Brick brick1, Brick brick2) {
+	public List<Direction> isTouching(Brick brick1, Brick brick2) {
 		
 		List<Direction> whereIsItTouching = new ArrayList<Direction>();
 
@@ -74,10 +74,10 @@ public class PlayGround {
 		Point l2 = new Point(brick2.getPosition().x, brick2.getPosition().y + height2);
 		Point r2 = new Point(brick2.getPosition().x + length2, brick2.getPosition().y);
 
-		boolean isTouchingRight = r1.x == l2.x && r1.y < l2.y && r1.y > r2.y;
-		boolean isTouchingLeft = l1.x == r2.x && r1.y > r2.y && r1.y < l2.y;
-		boolean isTouchingTop = l1.y == r2.y && l1.x > l2.x && l2.x < r2.x;
-		boolean isTouchingBottom = r1.y == l2.y && l1.x > l2.x && l1.x < r2.x;
+		boolean isTouchingRight = r1.x == l2.x && ((r1.y < l2.y && r1.y > r2.y) || (r1.y > r2.y && r1.y < l2.y));
+		boolean isTouchingLeft = l1.x == r2.x && ((r1.y > r2.y && r1.y < l2.y) || (r1.y < l2.y && r1.y > r2.y));
+		boolean isTouchingTop = l1.y == r2.y && ((l1.x > l2.x && l2.x < r2.x) || (l1.x > l2.x && l1.x < r2.x));
+		boolean isTouchingBottom = r1.y == l2.y && ((l1.x > l2.x && l1.x < r2.x) || (l1.x > l2.x && l2.x < r2.x));
 		
 		if(isTouchingRight) {
 			whereIsItTouching.add(Direction.RIGHT);
