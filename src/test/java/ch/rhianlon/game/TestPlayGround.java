@@ -52,13 +52,29 @@ class TestPlayGround {
 	}
 //	-------------------------------------------------------------------------------------------------------------------------------
 	@Test
-	@DisplayName("Method 'isTouching' Scenario righttouch is tested")
+	@DisplayName("Method 'isTouching' Scenario righttouch brich 1 is the smaller is tested")
 	void testIsTouchingRightTouch() {
 		PlayGround playground1 = new PlayGround();
 		Point position1 = new Point(1, 2);
 		Point position2 = new Point(3, 1);
 		Brick brick1 = new Brick(Orientation.HORIZONTAL, 2, false, position1);
 		Brick brick2 = new Brick(Orientation.VERTICAL, 3, false, position2);
+		List<Direction> myTestList = playground1.isTouching(brick1, brick2);
+		
+		Assertions.assertEquals(1, myTestList.size());
+		Assertions.assertEquals(Direction.RIGHT, myTestList.get(0));
+		Assertions.assertEquals(false, playground1.isOverlapping(brick1, brick2));		
+		
+	}
+	
+	@Test
+	@DisplayName("Method 'isTouching' Scenario righttouch brick 2 is the smaller is tested")
+	void testIsTouchingRightTouchV2() {
+		PlayGround playground1 = new PlayGround();
+		Point position1 = new Point(0, 0);
+		Point position2 = new Point(1, 1);
+		Brick brick1 = new Brick(Orientation.VERTICAL, 4, false, position1);
+		Brick brick2 = new Brick(Orientation.VERTICAL, 2, false, position2);
 		List<Direction> myTestList = playground1.isTouching(brick1, brick2);
 		
 		Assertions.assertEquals(1, myTestList.size());
