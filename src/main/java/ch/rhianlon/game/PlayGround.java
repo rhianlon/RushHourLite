@@ -53,15 +53,17 @@ public class PlayGround {
 
 	}
 
-	/*public boolean isTouching(Brick brick1, Brick brick2) {
-
-		boolean var = !isTouchingOneSide(brick1, brick2).isEmpty();
-		
-		return var; // isTouchingOneSide(brick1, brick2) || isTouchingOneSide(brick2, brick1);
-	}*/
+	/*
+	 * public boolean isTouching(Brick brick1, Brick brick2) {
+	 * 
+	 * boolean var = !isTouchingOneSide(brick1, brick2).isEmpty();
+	 * 
+	 * return var; // isTouchingOneSide(brick1, brick2) || isTouchingOneSide(brick2,
+	 * brick1); }
+	 */
 
 	public List<Direction> isTouching(Brick brick1, Brick brick2) {
-		
+
 		List<Direction> whereIsItTouching = new ArrayList<Direction>();
 
 		int length1 = brick1.getWidth();
@@ -78,50 +80,79 @@ public class PlayGround {
 		boolean isTouchingLeft = l1.x == r2.x && ((r1.y > r2.y && r1.y < l2.y) || (r1.y < l2.y && r1.y > r2.y));
 		boolean isTouchingTop = l1.y == r2.y && ((l1.x > l2.x && l2.x < r2.x) || (l1.x > l2.x && l1.x < r2.x));
 		boolean isTouchingBottom = r1.y == l2.y && ((l1.x > l2.x && l1.x < r2.x) || (l1.x > l2.x && l2.x < r2.x));
-		
-		if(isTouchingRight) {
+
+		if (isTouchingRight) {
 			whereIsItTouching.add(Direction.RIGHT);
 		}
-		if(isTouchingLeft) {
+		if (isTouchingLeft) {
 			whereIsItTouching.add(Direction.LEFT);
 		}
-		if(isTouchingBottom) {
+		if (isTouchingBottom) {
 			whereIsItTouching.add(Direction.DOWN);
 		}
-		if(isTouchingTop) {
+		if (isTouchingTop) {
 			whereIsItTouching.add(Direction.UP);
 		}
 		return whereIsItTouching;
 	}
 
-	public void moveBrick(Brick brick, Direction direction) {
+	public void moveBrick(Brick movingBrick, Direction direction) {
 
-		if (brick.getOrientation() == Orientation.HORIZONTAL) {
+		if (movingBrick.getOrientation() == Orientation.HORIZONTAL) {
+
 			if (direction == Direction.UP || direction == Direction.DOWN) {
 				throw new IllegalArgumentException("Cannot move Brick in horziontal Position up or down");
-			} else if (direction == Direction.RIGHT) {
 
-				Point position = brick.getPosition();
+			} else if (direction == Direction.RIGHT) {
+				for (Brick brick : bricks) {
+					if (isTouching(movingBrick, brick).contains(direction)) {
+						throw new IllegalArgumentException(
+								"Cannot move Brick to the right as there is another brick in the way");
+					}
+				}
+
+				Point position = movingBrick.getPosition();
 				int x = position.getX();
 				position.setX(x + 1);
+
 			} else {
-				Point position = brick.getPosition();
+				for (Brick brick : bricks) {
+					if (isTouching(movingBrick, brick).contains(direction)) {
+						throw new IllegalArgumentException(
+								"Cannot move Brick to the left as there is another brick in the way");
+					}
+				}
+				Point position = movingBrick.getPosition();
 				int x = position.getX();
 				position.setX(x - 1);
 
 			}
 		}
 
-		if (brick.getOrientation() == Orientation.VERTICAL) {
+		if (movingBrick.getOrientation() == Orientation.VERTICAL) {
 
 			if (direction == Direction.RIGHT || direction == Direction.LEFT) {
 				throw new IllegalArgumentException("Cannot move Brick in vertical Position left or right");
 			} else if (direction == Direction.UP) {
-				Point position = brick.getPosition();
+				for (Brick brick : bricks) {
+					if (isTouching(movingBrick, brick).contains(direction)) {
+						throw new IllegalArgumentException(
+								"Cannot move Brick up as there is another brick in the way");
+					}
+				}
+
+				Point position = movingBrick.getPosition();
 				int y = position.getY();
 				position.setY(y + 1);
 			} else {
-				Point position = brick.getPosition();
+				for (Brick brick : bricks) {
+					if (isTouching(movingBrick, brick).contains(direction)) {
+						throw new IllegalArgumentException(
+								"Cannot move Brick down as there is another brick in the way");
+					}
+				}
+
+				Point position = movingBrick.getPosition();
 				int y = position.getY();
 				position.setY(y - 1);
 
